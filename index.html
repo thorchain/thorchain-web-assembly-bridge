@@ -1,0 +1,45 @@
+<!doctype html>
+<!--
+Copyright 2018 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+-->
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Go wasm</title>
+</head>
+
+<body>
+	<script src="/js/lib/wasm_exec.js"></script>
+    <script src="/js/lib/bridge.js"></script>
+    <script>
+        (async function(){
+            
+            const { client, runner } = THORChainBridge()
+            console.log('loading web assembly binary...')
+            await runner.loadBinary()
+            console.log('binary loaded')
+            await runner.run()
+            console.log('bridge ready')
+
+
+            // test data
+            const from = "0117C8E80DB31A2F594E17943CC636AE90B21C92"
+            const to = "0117C8E80DB31A2F594E17943CC636AE90B21C92"
+            const privKey = "e1b0f79b20c07da0abbc50e486a1b88736b64756a5e131f1b0f85eb05740b28313dba06bb7"
+            const coins = "5RUNE"
+            const address = "6163636F756E743A0117C8E80DB31A2F594E17943CC636AE90B21C92"
+
+            const account = await client.getAccount(address)
+            const signedTx = await client.send(from, to, coins, privKey)
+            const resp = await client.broadcast(signedTx)
+
+            console.log({account, signedTx, resp})
+            
+        })()
+    </script>
+</body>
+
+</html>
