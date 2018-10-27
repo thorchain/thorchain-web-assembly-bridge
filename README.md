@@ -1,5 +1,8 @@
 # thorchain-wasm-bridge
-Bridge for building, signing and encoding tendermint messages in the browser 
+
+[![Maintainability](https://api.codeclimate.com/v1/badges/9d2cf138e255b1e3ae4c/maintainability)](https://codeclimate.com/github/thorchain/thorchain-wasm-bridge/maintainability)
+
+Bridge for building, signing and encoding tendermint messages in the browser
 
 ### Build the web assembly binary
 ```
