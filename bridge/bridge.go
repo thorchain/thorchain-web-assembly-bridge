@@ -11,42 +11,72 @@ import (
 	"github.com/thorchain/thorchain-wasm-bridge/types"
 )
 
+// Bridge provides access to encoding, encryption, and types to remote Javascript
 type Bridge struct {
 	cdc       *wire.Codec
 	namespace string
 	callbacks []js.Callback
 }
 
+// NewBridge returns a new instance of Bridge
 func NewBridge(cdc *wire.Codec) *Bridge {
 	return &Bridge{
 		cdc: cdc,
 	}
 }
 
+// SetNamespace stores a shared namespace with the client used for callbacks
 func (b *Bridge) SetNamespace(args []js.Value) {
 	b.namespace = args[0].String()
 	b.setCallbacks()
 }
 
 func (b *Bridge) setCallbacks() {
-	callbacksendMessage := js.NewCallback(b.sendMessage)
+	callbackSendMessage := js.NewCallback(b.sendMessage)
 	setSendMessage := js.Global().Get(b.namespace + "_set_sendMessage")
-	setSendMessage.Invoke(callbacksendMessage)
+	setSendMessage.Invoke(callbackSendMessage)
 
 	callbackDecodeAcct := js.NewCallback(b.decodeAccount)
 	setDecodeAccount := js.Global().Get(b.namespace + "_set_decodeAccount")
 	setDecodeAccount.Invoke(callbackDecodeAcct)
 
+	callbackPubKeyFromPriv := js.NewCallback(b.pubKeyFromPriv)
+	setPubKeyFromPriv := js.Global().Get(b.namespace + "_set_pubKeyFromPriv")
+	setPubKeyFromPriv.Invoke(callbackPubKeyFromPriv)
+
 	b.callbacks = []js.Callback{
-		callbacksendMessage,
+		callbackSendMessage,
 		callbackDecodeAcct,
+		callbackPubKeyFromPriv,
 	}
 }
 
+func (b *Bridge) getJSCallback(args []js.Value) js.Value {
+	callback := args[len(args)-1:][0]
+	fmt.Printf("callback: %v\n", callback)
+	jsCallback := js.Global().Get(callback.String())
+	return jsCallback
+}
+
+// ReleaseCallbacks releases all callbacks created by the bridge from memory
 func (b *Bridge) ReleaseCallbacks() {
 	for _, callback := range b.callbacks {
 		callback.Release()
 	}
+}
+
+func (b *Bridge) pubKeyFromPriv(args []js.Value) {
+	privKey := args[0].String()
+	pubKey := util.PubKeyFromPriv(privKey)
+
+	jsonValue, err := b.cdc.MarshalJSON(&pubKey)
+	fmt.Printf("jsonValue: %+v\n", jsonValue)
+	if err != nil {
+		panic(fmt.Sprintf("Unable to get private key: %+v\n", err))
+	}
+	jsCallback := b.getJSCallback(args)
+	jsCallback.Invoke(string(jsonValue))
+	return
 }
 
 func (b *Bridge) decodeAccount(args []js.Value) {
@@ -63,9 +93,8 @@ func (b *Bridge) decodeAccount(args []js.Value) {
 		panic(err)
 	}
 	jsonValue, err := b.cdc.MarshalJSON(acc)
-	fmt.Print("jsonValue: +%v\n", jsonValue)
-	callback := args[len(args)-1:][0]
-	jsCallback := js.Global().Get(callback.String())
+	fmt.Printf("jsonValue: %+v\n", jsonValue)
+	jsCallback := b.getJSCallback(args)
 	jsCallback.Invoke(string(jsonValue))
 }
 
@@ -78,7 +107,6 @@ func (b *Bridge) sendMessage(args []js.Value) {
 	txBytes, _ := tx.NewSendTx(from, to, coins, privKeyHex, b.cdc)
 	jsonValue, _ := b.cdc.MarshalJSON(txBytes)
 	fmt.Printf("jsonValue: %+v\n", string(jsonValue))
-	callback := args[len(args)-1:][0]
-	jsCallback := js.Global().Get(callback.String())
+	jsCallback := b.getJSCallback(args)
 	jsCallback.Invoke(string(jsonValue))
 }

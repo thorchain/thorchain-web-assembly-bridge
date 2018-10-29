@@ -22,7 +22,7 @@ func main() {
 
 	callbackSetNamespace := js.NewCallback(b.SetNamespace)
 	defer callbackSetNamespace.Release()
-	setNamespace := js.Global().Get("__custom_wasm_go_getNamespace")
+	setNamespace := js.Global().Get("__thorchain_wasm_go_getNamespace")
 	setNamespace.Invoke(callbackSetNamespace)
 
 	beforeUnloadCb := js.NewEventCallback(0, beforeUnload)

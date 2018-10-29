@@ -1,16 +1,21 @@
 package util
 
 import (
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 
 	"github.com/cosmos/cosmos-sdk/wire"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/pkg/errors"
+	cryptoAmino "github.com/tendermint/tendermint/crypto/encoding/amino"
 	"github.com/thorchain/thorchain-wasm-bridge/types"
 )
 
-func GetPublicKey(priv []byte) {
+func PubKeyFromPriv(privKey string) (pubKey string) {
+	privB, _ := hex.DecodeString(privKey)
+	priv, _ := cryptoAmino.PrivKeyFromBytes(privB)
+	pubKey = hex.EncodeToString(priv.PubKey().Bytes())
 	return
 }
 
