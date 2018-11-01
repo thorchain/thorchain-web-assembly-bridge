@@ -19,7 +19,19 @@ $ npm run build
 // stored in ./js/lib/bridge.js
 ```
 
-### Server demo page
+
+### Cross Langauge Communication
+
+Go code can be invoked through Javascript and vice-versa through the use of registered callbacks. These callbacks can't return values to each other, so we created a wrapper that makes a promise resolving function accesbile to Go and automatically passes it in as the last argument. This allows you to get the result of a Go callback using a promise chain or `await`.
+
+### Usage
+
+```
+const { client, runner } = THORChainBridge()
+const account = await client.getAccount(address)
+```
+
+### Serve demo page
 ```
 make serve
 ```
