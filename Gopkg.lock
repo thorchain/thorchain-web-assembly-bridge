@@ -204,6 +204,21 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:68e2dccae1672c4062841c5dd0a9c0a10e853816fb65d738e4914e3b73d7f64e"
+  name = "github.com/thorchain/thorchain-wasm-bridge"
+  packages = [
+    "bridge",
+    "thorchain/x/clp",
+    "thorchain/x/clp/types",
+    "tx",
+    "tx/util",
+    "types",
+  ]
+  pruneopts = "UT"
+  revision = "a0c60fc12e9d280a3b47b8dc1fcfc35b60e3cd44"
+
+[[projects]]
+  branch = "master"
   digest = "1:f804354850ef747f20e387a75e04dfc64a205ab342f7086b7d77796865ff5ede"
   name = "golang.org/x/crypto"
   packages = ["ripemd160"]
@@ -302,6 +317,12 @@
     "github.com/pkg/errors",
     "github.com/tendermint/tendermint/crypto",
     "github.com/tendermint/tendermint/crypto/encoding/amino",
+    "github.com/thorchain/thorchain-wasm-bridge/bridge",
+    "github.com/thorchain/thorchain-wasm-bridge/thorchain/x/clp",
+    "github.com/thorchain/thorchain-wasm-bridge/thorchain/x/clp/types",
+    "github.com/thorchain/thorchain-wasm-bridge/tx",
+    "github.com/thorchain/thorchain-wasm-bridge/tx/util",
+    "github.com/thorchain/thorchain-wasm-bridge/types",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1

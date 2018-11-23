@@ -1,3 +1,7 @@
+prepare:
+	dep ensure
+	cp -R vendor_patches/* vendor
+
 build:
 	GOOS=js GOARCH=wasm ${BINARY_PATH}go build -o thorchain_bridge.wasm main.go
 	mv thorchain_bridge.wasm ./bin
