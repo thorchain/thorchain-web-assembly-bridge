@@ -9,32 +9,17 @@ Bridge for building, signing and encoding tendermint messages in the browser
 ```sh
 $ make prepare
 $ make build
-// stored in ./bin/bridge.wasm
+// stored in ./js/dist/thorchain_bridge.wasm
 ```
 
-### Build the Javascript library
+### Build and publish the JavaScript library
 
-```sh
-$ cd js
-$ npm install
-$ npm run build
-// stored in ./js/lib/bridge.js
-```
+See `./js/README.md`
 
+### Working example
+
+See `./example/README.md`
 
 ### Cross Langauge Communication
 
 Go code can be invoked through Javascript and vice-versa through the use of registered callbacks. These callbacks can't return values to each other, so we created a wrapper that makes a promise resolving function accesbile to Go and automatically passes it in as the last argument. This allows you to get the result of a Go callback using a promise chain or `await`.
-
-### Usage
-
-```sh
-const { client, runner } = THORChainBridge()
-const account = await client.getAccount(address)
-```
-
-### Serve demo page
-
-```sh
-make serve
-```

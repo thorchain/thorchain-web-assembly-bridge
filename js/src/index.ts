@@ -1,21 +1,21 @@
-import {WASMBridge} from './WASMBridge'
-import {WASMRunner} from './WASMRunner'
-import {Client} from './Client'
-import {BridgeClient, Runtime} from './interfaces'
+import { Client } from './Client'
+import { IBridgeClient, IRuntime } from './interfaces'
+import { WASMBridge } from './WASMBridge'
+import { WASMRunner } from './WASMRunner'
 
 export default function (
-  binaryUri: string = '/bin/bridge.wasm',
+  runtime: IRuntime,
+  binaryUri: string = '/thorchain_bridge.wasm',
   nodeUri: string = 'http://localhost:26657/',
-  runtime:Runtime,
-  ClientClass: typeof Client
+  ClientClass: typeof Client = Client,
 ) {
   const bridge: WASMBridge = new WASMBridge()
   const runner: WASMRunner = new WASMRunner(runtime, binaryUri, bridge)
-  const bridgeClient: BridgeClient = bridge.getClient()
+  const bridgeClient: IBridgeClient = bridge.getClient()
   const client: Client = new ClientClass(nodeUri, bridgeClient)
 
   return {
     client,
-    runner
+    runner,
   }
 }

@@ -1,31 +1,32 @@
-import { BridgeClient } from "./interfaces";
+import { IBridgeClient } from './interfaces'
 
 class RPCMethods {
-  static ABCI_QUERY: string = "abci_query"
-  static BROADCAST_TX_COMMIT: string = "broadcast_tx_commit"
+  public static ABCI_QUERY: string = 'abci_query'
+  public static BROADCAST_TX_COMMIT: string = 'broadcast_tx_commit'
 }
 
+// tslint:disable-next-line:max-classes-per-file
 export class Client {
   private uri: string
-  private bridge: BridgeClient
+  private bridge: IBridgeClient
 
-  constructor(uri: string, bridge: BridgeClient) {
+  constructor(uri: string, bridge: IBridgeClient) {
     this.uri = uri
     this.bridge = bridge
   }
 
-  public request = async (method: string , params: object) => {
+  public request = async (method: string, params: object) => {
     const payload = {
-      "jsonrpc": "2.0",
-      "id": "jsonrpc-client",
+      id: 'jsonrpc-client',
+      jsonrpc: '2.0',
       method,
-      params
+      params,
     }
     const resp = await fetch(this.uri, {
+      body: JSON.stringify(payload),
       method: 'POST',
-      body: JSON.stringify(payload)
-    }).then(resp=>resp.json())
-    return resp;
+    }).then(res => res.json())
+    return resp
   }
 
   public getPubKeyFromPriv = async (privKey: string) => {
@@ -40,7 +41,7 @@ export class Client {
 
   public broadcast = async (signedTx: string) => {
     const resp = await this.request(RPCMethods.BROADCAST_TX_COMMIT, {
-        tx: signedTx
+      tx: signedTx,
     })
     return resp
   }
@@ -50,7 +51,7 @@ export class Client {
       data: address,
       height: '0',
       path: '/store/acc/key',
-      trusted: true
+      trusted: true,
     })
     const accountResp = await this.bridge.decodeAccount(JSON.stringify(resp))
     const account = JSON.parse(accountResp)

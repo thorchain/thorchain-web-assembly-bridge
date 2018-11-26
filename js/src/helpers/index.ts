@@ -1,24 +1,24 @@
-export interface URNGResult {
-  number: Number
+export interface IURNGResult {
+  num: number
   release(): void
 }
 
 // Locally unique random numbers
 export class UniqueRNG {
-  private static numSet: Set<Number>
+  private numSet: Set<number>
 
   constructor() {
-    UniqueRNG.numSet = new Set()
+    this.numSet = new Set()
   }
 
-  public getRand(): URNGResult  {
-    const number: Number = crypto.getRandomValues(new Uint32Array(1))[0];
-    if (UniqueRNG.numSet.has(number)) {
-      return this.getRand();
+  public getRand(): IURNGResult {
+    const num: number = crypto.getRandomValues(new Uint32Array(1))[0]
+    if (this.numSet.has(num)) {
+      return this.getRand()
     }
     const release = () => {
-      UniqueRNG.numSet.delete(number)
+      this.numSet.delete(num)
     }
-    return {number, release}
+    return { num, release }
   }
 }
