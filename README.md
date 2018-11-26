@@ -5,14 +5,16 @@
 Bridge for building, signing and encoding tendermint messages in the browser
 
 ### Build the web assembly binary
-```
+
+```sh
 $ make prepare
 $ make build
 // stored in ./bin/bridge.wasm
 ```
 
 ### Build the Javascript library
-```
+
+```sh
 $ cd js
 $ npm install
 $ npm run build
@@ -26,12 +28,13 @@ Go code can be invoked through Javascript and vice-versa through the use of regi
 
 ### Usage
 
-```
+```sh
 const { client, runner } = THORChainBridge()
 const account = await client.getAccount(address)
 ```
 
 ### Serve demo page
-```
+
+```sh
 make serve
 ```

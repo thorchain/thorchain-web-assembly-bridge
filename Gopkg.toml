@@ -24,6 +24,10 @@
 #   go-tests = true
 #   unused-packages = true
 
+# This is a necessary workaround that can be removed once https://github.com/gogo/protobuf/issues/493 is resolved:
+[[override]]
+  name = "github.com/gogo/protobuf"
+  branch = "master"
 
 [[constraint]]
   name = "github.com/cosmos/cosmos-sdk"
@@ -35,7 +39,7 @@
 
 [[constraint]]
   name = "github.com/tendermint/tendermint"
-  version = "0.25.0"
+  version = "v0.23.1-rc0"
 
 [prune]
   go-tests = true

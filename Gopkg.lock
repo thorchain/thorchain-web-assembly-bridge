@@ -67,7 +67,8 @@
   version = "v1.8.0"
 
 [[projects]]
-  digest = "1:35621fe20f140f05a0c4ef662c26c0ab4ee50bca78aa30fe87d33120bd28165e"
+  branch = "master"
+  digest = "1:587b630720d0bb8a7abe2eb2474bc809d03838dce48bbf8f37821c6620da5f4b"
   name = "github.com/gogo/protobuf"
   packages = [
     "gogoproto",
@@ -78,8 +79,7 @@
     "types",
   ]
   pruneopts = "UT"
-  revision = "636bf0302bc95575d69441b25a2603156ffdddf1"
-  version = "v1.1.1"
+  revision = "07eab6a8298cf32fac45cceaac59424f98421bbc"
 
 [[projects]]
   digest = "1:17fe264ee908afc795734e8c4e63db2accabaf57326dbf21763a7d6b86096260"
@@ -149,13 +149,6 @@
   revision = "6b91fda63f2e36186f1c9d0e48578defb69c5d43"
 
 [[projects]]
-  digest = "1:605b6546f3f43745695298ec2d342d3e952b6d91cdf9f349bea9315f677d759f"
-  name = "github.com/tendermint/btcd"
-  packages = ["btcec"]
-  pruneopts = "UT"
-  revision = "e5840949ff4fff0c56f9b6a541e22b63581ea9df"
-
-[[projects]]
   branch = "master"
   digest = "1:087aaa7920e5d0bf79586feb57ce01c35c830396ab4392798112e8aae8c47722"
   name = "github.com/tendermint/ed25519"
@@ -168,15 +161,15 @@
   revision = "d8387025d2b9d158cf4efb07e7ebf814bcce2057"
 
 [[projects]]
-  digest = "1:2c971a45c89ca2ccc735af50919cdee05fbdc54d4bf50625073693300e31ead8"
+  digest = "1:e9113641c839c21d8eaeb2c907c7276af1eddeed988df8322168c56b7e06e0e1"
   name = "github.com/tendermint/go-amino"
   packages = ["."]
   pruneopts = "UT"
-  revision = "faa6e731944e2b7b6a46ad202902851e8ce85bee"
-  version = "v0.12.0"
+  revision = "2106ca61d91029c931fd54968c2bb02dc96b1412"
+  version = "0.10.1"
 
 [[projects]]
-  digest = "1:9d75486dcc85373ab62368cdfb6f14ed141158baaf3402451f5e54bc01e0a7db"
+  digest = "1:a1b4ebeec6651e972a47878d3e133246e1e29c3838f6d9fe4ed8cf42ca568247"
   name = "github.com/tendermint/tendermint"
   packages = [
     "abci/types",
@@ -184,38 +177,19 @@
     "crypto/ed25519",
     "crypto/encoding/amino",
     "crypto/merkle",
-    "crypto/multisig",
-    "crypto/multisig/bitarray",
     "crypto/secp256k1",
     "crypto/tmhash",
     "libs/bech32",
     "libs/common",
     "libs/db",
-    "libs/errors",
     "libs/log",
     "libs/pubsub",
     "libs/pubsub/query",
     "types",
-    "types/time",
   ]
   pruneopts = "UT"
-  revision = "0c9c3292c918617624f6f3fbcd95eceade18bcd5"
-  version = "v0.25.0"
-
-[[projects]]
-  branch = "master"
-  digest = "1:68e2dccae1672c4062841c5dd0a9c0a10e853816fb65d738e4914e3b73d7f64e"
-  name = "github.com/thorchain/thorchain-wasm-bridge"
-  packages = [
-    "bridge",
-    "thorchain/x/clp",
-    "thorchain/x/clp/types",
-    "tx",
-    "tx/util",
-    "types",
-  ]
-  pruneopts = "UT"
-  revision = "a0c60fc12e9d280a3b47b8dc1fcfc35b60e3cd44"
+  revision = "9e940b95ad4d27efab60d0d49278db5acb2a3b7e"
+  version = "v0.23.1"
 
 [[projects]]
   branch = "master"
@@ -317,12 +291,6 @@
     "github.com/pkg/errors",
     "github.com/tendermint/tendermint/crypto",
     "github.com/tendermint/tendermint/crypto/encoding/amino",
-    "github.com/thorchain/thorchain-wasm-bridge/bridge",
-    "github.com/thorchain/thorchain-wasm-bridge/thorchain/x/clp",
-    "github.com/thorchain/thorchain-wasm-bridge/thorchain/x/clp/types",
-    "github.com/thorchain/thorchain-wasm-bridge/tx",
-    "github.com/thorchain/thorchain-wasm-bridge/tx/util",
-    "github.com/thorchain/thorchain-wasm-bridge/types",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
