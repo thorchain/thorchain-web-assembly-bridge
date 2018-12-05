@@ -1,3 +1,4 @@
 .env
-vendor
-js/dist
+/dist
+/vendor
+.idea

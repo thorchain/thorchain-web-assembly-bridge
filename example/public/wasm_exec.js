@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Copyright 2018 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
@@ -41,7 +42,8 @@
 			writeSync(fd, buf) {
 				outputBuf += decoder.decode(buf);
 				const nl = outputBuf.lastIndexOf("\n");
-				if (nl != -1) {
+				if (nl !== -1) {
+					// tslint:disable-next-line:no-console
 					console.log(outputBuf.substr(0, nl));
 					outputBuf = outputBuf.substr(nl + 1);
 				}
@@ -64,6 +66,7 @@
 			this.env = {};
 			this.exit = (code) => {
 				if (code !== 0) {
+					// tslint:disable-next-line:no-console
 					console.warn("exit code:", code);
 				}
 			};
@@ -146,6 +149,7 @@
 						typeFlag = 3;
 						break;
 				}
+				// tslint:disable-next-line:no-bitwise
 				mem().setUint32(addr + 4, nanHead | typeFlag, true);
 				mem().setUint32(addr, ref, true);
 			}
@@ -295,7 +299,7 @@
 
 					// func valueLength(v ref) int
 					"syscall/js.valueLength": (sp) => {
-						setInt64(sp + 16, parseInt(loadValue(sp + 8).length));
+						setInt64(sp + 16, parseInt(loadValue(sp + 8).length, 10));
 					},
 
 					// valuePrepareString(v ref) (ref, int)
@@ -317,6 +321,7 @@
 					},
 
 					"debug": (value) => {
+						// tslint:disable-next-line:no-console
 						console.log(value);
 					},
 				}
